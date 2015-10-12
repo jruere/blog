@@ -1,5 +1,6 @@
 Title: Choosing a Static Site Generator
 Date: 2015-10-06 23:44
+Category: play
 Tags: web, indieweb, python
 
 An article in my feed about some dude changing his static site generator reminded me of the subject.

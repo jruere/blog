@@ -29,7 +29,7 @@ Setup a mesh connection between the two machines with static IPs. To test the co
 
 Since the machines are so similar, the instructions work almost verbatim with the exception of the device name.
 
-```
+```text
 sudo iw dev wlan0 set type mesh
 sudo ip addr add 192.168.2.5/24 dev wlan0
 sudo ip link set up dev wlan0
@@ -49,7 +49,7 @@ This sets both devices to the same channel as mesh points.
 
 A `iw dev wlan0 station dump` shows that a connection is established:
 
-```
+```text
 iw dev wlan0 station dump
 Station 00:1b:11:20:dc:2c (on wlan0)
 	inactive time:	486 ms
@@ -80,7 +80,7 @@ Station 00:1b:11:20:dc:2c (on wlan0)
 
 The `arping` tool gets a reply:
 
-```
+```text
 sudo arping -I wlan0 192.168.2.3
 ARPING 192.168.2.3 from 192.168.2.5 wlan0
 Unicast reply from 192.168.2.3 [00:1B:11:20:DC:2C]  8.153ms
@@ -90,7 +90,7 @@ Received 1 response(s)
 
 The ARP table gets a new entry:
 
-```
+```text
 arp -n
 Address                  HWtype  HWaddress           Flags Mask            Iface
 192.168.2.3              ether   00:1b:11:20:dc:2c   C                     wlan0
@@ -98,7 +98,7 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 
 The mesh path, looks good.
 
-```
+```text
 sudo iw dev wlan0 mpath dump
 DEST ADDR         NEXT HOP          IFACE	SN	METRIC	QLEN	EXPTIME		DTIM	DRET	FLAGS
 00:1b:11:20:dc:2c 00:1b:11:20:dc:2c wlan0	17	342	0	0	100	0	0x4
@@ -106,7 +106,7 @@ DEST ADDR         NEXT HOP          IFACE	SN	METRIC	QLEN	EXPTIME		DTIM	DRET	FLAG
 
 Unfortunately, `ping` does not work.
 
-```
+```text
 ping 192.168.2.3
 PING 192.168.2.3 (192.168.2.3) 56(84) bytes of data.
 ^C

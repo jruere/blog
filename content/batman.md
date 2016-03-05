@@ -22,7 +22,7 @@ A current Arch has the 4.4.1 kernel.
 
 IBSS does not appear to be usable with other configurations on the Atheros WiFi:
 
-```
+```text
 $ iw list
 [...]
 	valid interface combinations:
@@ -44,7 +44,7 @@ Broadcom supports no combinations, of course.
 
 Since the machines are so similar, the instructions work almost verbatim with the exception of the device name.
 
-```
+```text
 $ sudo iw dev wlan0 set type ibss
 $ sudo ip addr add 192.168.2.5/24 dev wlan0
 $ sudo ip link set up dev wlan0
@@ -67,7 +67,7 @@ This sets both devices to the same channel as peers.
 
 A `iw dev wlan0 station dump` shows that a connection is established:
 
-```
+```text
 $ iw dev wlan0 station dump
 Station d0:53:49:c0:05:6a (on wlan0)
 	inactive time:	356 ms
@@ -106,14 +106,15 @@ BATMAN will work over any link. That means that it would work over ethernet, ad-
 
 First configure the device:
 
-```
+```text
 $ sudo iw dev wlan0 set type ibss
+$ sudo ip link set up dev wlan0
 $ sudo iw dev wlan0 ibss join openbatman 2432
 ```
 
 Now configure BATMAN:
 
-```
+```text
 $ sudo modprobe batman-adv
 $ sudo batctl if add wlan0
 $ sudo ip link set up dev wlan0

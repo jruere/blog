@@ -28,7 +28,7 @@ Optional:
 1. Etc: Windows, Mac, Android, iPhone.
 
 
-The router uses OpenWRT 12.09 but I'll upgrade it to Chaos Calmer.
+The router uses OpenWRT 12.09 (from 2012!) but I'll upgrade it to Chaos Calmer.
 
 The PC and Laptop run Arch Linux.
 

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Notes and Stuff - work</title><link href="https://www.ruere.com.ar/" rel="alternate"></link><link href="https://www.ruere.com.ar/feeds/work.atom.xml" rel="self"></link><id>https://www.ruere.com.ar/</id><updated>2016-02-28T19:23:00-03:00</updated><entry><title>A small survey of hosted brokered messaging systems</title><link href="https://www.ruere.com.ar/a-small-survey-of-hosted-brokered-messaging-systems.html" rel="alternate"></link><published>2015-11-15T21:45:00-03:00</published><updated>2016-02-28T19:23:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2015-11-15:/a-small-survey-of-hosted-brokered-messaging-systems.html</id><summary type="html">&lt;h1&gt;Azure Storage Queues&lt;/h1&gt;
+&lt;p&gt;Intro: [1]&lt;/p&gt;
+&lt;p&gt;Pricing:
+- https://azure.microsoft.com/en-us/pricing/details/storage/
+- [2]&lt;/p&gt;
+&lt;p&gt;Protocols:
+- HTTP, restful&lt;/p&gt;
+&lt;p&gt;Access control:
+- Shared Key&lt;/p&gt;
+&lt;p&gt;Performance characteristics[1][4]:
+- Max num of queues: inf
+- Max msg size: 64KB
+- Max num msgs: 500TB (for the entire storage account)
+- Max persistence time: 7 days
+(https …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Azure Storage Queues&lt;/h1&gt;
+&lt;p&gt;Intro: [1]&lt;/p&gt;
+&lt;p&gt;Pricing:
+- https://azure.microsoft.com/en-us/pricing/details/storage/
+- [2]&lt;/p&gt;
+&lt;p&gt;Protocols:
+- HTTP, restful&lt;/p&gt;
+&lt;p&gt;Access control:
+- Shared Key&lt;/p&gt;
+&lt;p&gt;Performance characteristics[1][4]:
+- Max num of queues: inf
+- Max msg size: 64KB
+- Max num msgs: 500TB (for the entire storage account)
+- Max persistence time: 7 days
+(https://msdn.microsoft.com/en-us/library/azure/dd179346.aspx)
+- Connections are not persistent[3]
+- Batch receive: up to 32 msg
+(https://msdn.microsoft.com/en-us/library/azure/dd179474.aspx)
+- Batch send: 1 msg
+(https://msdn.microsoft.com/en-us/library/azure/dd179346.aspx)
+- Max throughput: target throughput for single queue (1 KB messages) up
+to 2000 msgs/second[4]&lt;/p&gt;
+&lt;p&gt;Problems:
+- Doesn't provide Topics: could be worked around with app code and
+accepting some duplication on errors
+- Opening a connection requires ~1s so this limits the throughput per
+connection to ~32 recv/s and ~1 send/s&lt;/p&gt;
+&lt;h1&gt;Azure ServiceBus&lt;/h1&gt;
+&lt;p&gt;Intro: https://azure.microsoft.com/en-us/documentation/services/service-bus/&lt;/p&gt;
+&lt;p&gt;Pricing:
+- https://azure.microsoft.com/en-us/pricing/details/service-bus/
+- [2]&lt;/p&gt;
+&lt;p&gt;Access control:
+- Shared Key&lt;/p&gt;
+&lt;p&gt;Protocols:
+- Custom (for .net)
+- HTTP, restful
+- AMQP 1.0 [5] (according to the docs, it should even work with
+partitioned queues[6])&lt;/p&gt;
+&lt;p&gt;Performance characteristics[7]:
+- Max num of queues: 10.000 (per service namespace)
+- Max msg size: 256KB
+- Max num msgs: 80GB (when using partitioning, otherwise 5GB)
+- Max persistence time: unlimited
+- Connections are not persistent on HTTP
+- Connections are persistent on the other 2 protocols
+- Batch receive:
+-- HTTP: 1 msg
+-- Others: yes
+- Batch send:
+-- HTTP: 1 msg
+-- Others: yes
+- Max concurrent clients: 100 TCP connections, no limit on HTTP clients
+(bullshit!)
+- Max throughput: target throughput for single queue (1 KB messages) up
+to 2000 transactions/second (receiving is 2 operations, sending 1)&lt;/p&gt;
+&lt;p&gt;Problems:
+- AMQP doesn't work with Python (I'll take another look this week). Update: &lt;a href="https://issues.apache.org/jira/browse/PROTON-1087"&gt;It was a build problem&lt;/a&gt;.
+- HTTP connections start to fail after a given number.&lt;/p&gt;
+&lt;h1&gt;RackSpace Cloud Queues&lt;/h1&gt;
+&lt;p&gt;Intro: [8]&lt;/p&gt;
+&lt;p&gt;Pricing:
+- [8]
+- http://www.rackspace.com/cloud/public-pricing/#bandwidth&lt;/p&gt;
+&lt;p&gt;Access control:
+- ?&lt;/p&gt;
+&lt;p&gt;Protocols:
+- HTTP, restful&lt;/p&gt;
+&lt;p&gt;Performance characteristics:
+- Max num of queues:
+- Max msg size: Less than 256KB
+- Max num msgs:
+- Max persistence time: 14 days
+- Connections are not persistent
+- Batch receive: 100 receive (depending on size), 25 delete
+- Batch send: 25 (up to 256KB)
+- Max concurrent clients:
+- Max throughput:&lt;/p&gt;
+&lt;p&gt;Problems:
+- Non persistent HTTP connections
+- Performance?&lt;/p&gt;
+&lt;h1&gt;Amazon Simple Queue Service + Simple Notification Service&lt;/h1&gt;
+&lt;p&gt;Topics are deconstructed into queues and a generic message multiplexing
+service (like an exchange but for many services). Pretty nice.
+Similar to Azure Storage Queues.&lt;/p&gt;
+&lt;h2&gt;Intro:&lt;/h2&gt;
+&lt;p&gt;http://gauravmantri.com/2012/03/27/comparing-windows-azure-queue-service-and-amazon-simple-queue-service/
+- https://aws.amazon.com/sqs/
+- https://docs.aws.amazon.com/sns/latest/dg/welcome.html&lt;/p&gt;
+&lt;p&gt;Pricing:
+- https://aws.amazon.com/sqs/pricing/
+- SNS is free for this purpose: https://aws.amazon.com/sns/pricing/&lt;/p&gt;
+&lt;p&gt;Access control:
+- https://aws.amazon.com/iam/&lt;/p&gt;
+&lt;p&gt;Protocols:
+- HTTP, restful&lt;/p&gt;
+&lt;p&gt;Performance characteristics[9]:
+- Max num of queues:
+- Max msg size: 64KB
+- Max num msgs:
+- Max persistence time: 4 days
+- Connections are not persistent
+- Batch receive: 10 msgs (probabilistic!)
+- Batch send: up to 64KB or 10 msgs
+- Max concurrent clients:
+- Max throughput:&lt;/p&gt;
+&lt;p&gt;Problems:
+- Non persistent HTTP connections
+- Performance?&lt;/p&gt;
+&lt;h1&gt;CloudAMQP (Hosted RabbitMQ)&lt;/h1&gt;
+&lt;p&gt;The service must be hosted on Heroku, AppHarbour, Bluemix or others.
+Has a NewRelic plugin.
+I'll focus on plan Big Bunny.&lt;/p&gt;
+&lt;p&gt;Intro:
+- https://www.cloudamqp.com/
+- http://blog.turret.io/rabbitmq-vs-amazon-sqs-a-short-comparison/
+- https://www.cloudamqp.com/docs/faq.html#SLA&lt;/p&gt;
+&lt;p&gt;Pricing:
+- 99USD/month (https://www.cloudamqp.com/plans.html)
+- https://elements.heroku.com/addons/cloudamqp&lt;/p&gt;
+&lt;p&gt;Access control:
+- LDAP or other SASL backends
+- Plain over TLS&lt;/p&gt;
+&lt;p&gt;Protocols:
+- AMQP 0.9.1
+- AMQP 1.0?
+- HTTPS
+- Others&lt;/p&gt;
+&lt;p&gt;Performance characteristics:
+- Max num of queues: inf
+- Max msg size: big
+- Max num msgs: inf
+- Max persistence time: inf
+- Batch receive:
+- Batch send:
+- Max concurrent clients: 1.000
+- Max throughput: 10K msgs/s&lt;/p&gt;
+&lt;p&gt;Problems:
+- Latency between data centers? Should be low. See:
+https://www.cloudamqp.com/docs/faq.html#Available_data_centers
+- Cannot easily change plan.&lt;/p&gt;
+&lt;h1&gt;PubNub&lt;/h1&gt;
+&lt;p&gt;This one is a little weird. It has the additional feature of replaying
+past messages. This is an awesome feature that we've implemented
+ourselves and would be nice if we could delegate. It would mean 1 less
+component (from the total 4 components) and also that we would depend on
+PubNub.&lt;/p&gt;
+&lt;p&gt;Intro: https://www.pubnub.com/products/publish-subscribe/&lt;/p&gt;
+&lt;p&gt;Pricing:
+- 4M msgs/day = 120M msgs/month = custom pricing
+(https://www.pubnub.com/pricing/)&lt;/p&gt;
+&lt;p&gt;Access control:
+- ?&lt;/p&gt;
+&lt;p&gt;Protocols:
+- ?&lt;/p&gt;
+&lt;p&gt;Performance characteristics:
+- Max num of queues:
+- Max msg size:
+- Max num msgs:
+- Max persistence time:
+- Batch receive:
+- Batch send:
+- Max concurrent clients:
+- Max throughput:&lt;/p&gt;
+&lt;p&gt;Problems:
+- No SLA until to top plan.
+- Price!&lt;/p&gt;
+&lt;h1&gt;StormMQ&lt;/h1&gt;
+&lt;p&gt;Looks awesome and dead.&lt;/p&gt;
+&lt;p&gt;Best Regards,
+Javier&lt;/p&gt;
+&lt;p&gt;[1]
+https://azure.microsoft.com/en-us/documentation/articles/storage-introduction/
+[2] https://azure.microsoft.com/en-us/pricing/details/data-transfers/
+[3] Each operation requires opening a new connection.
+[4]
+https://azure.microsoft.com/en-us/documentation/articles/azure-subscription-service-limits/#storage-limits
+[5]
+https://azure.microsoft.com/en-us/documentation/articles/service-bus-amqp-overview/
+[6]
+https://azure.microsoft.com/en-us/documentation/articles/service-bus-partitioned-queues-and-topics-amqp-overview/
+[7]
+https://azure.microsoft.com/en-us/documentation/articles/service-bus-azure-and-service-bus-queues-compared-contrasted/
+[8] http://www.rackspace.com/cloud/queues
+[9]
+http://gauravmantri.com/2012/03/27/comparing-windows-azure-queue-service-and-amazon-simple-queue-service/&lt;/p&gt;</content><category term="messaging"></category><category term="broker"></category><category term="net"></category></entry></feed>

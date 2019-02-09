@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>B.A.T.M.A.N</title>
+        <link rel="stylesheet" href="https://www.ruere.com.ar/theme/css/main.css" />
+        <link href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Notes and Stuff Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://www.ruere.com.ar/">Notes and Stuff </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
+                    <li><a href="https://www.ruere.com.ar/category/work.html">work</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://www.ruere.com.ar/batman.html" rel="bookmark"
+           title="Permalink to B.A.T.M.A.N">B.A.T.M.A.N</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-02-28T21:48:00-03:00">
+                Published: Sun 28 February 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.ruere.com.ar/author/javier-ruere.html">Javier Ruere</a>
+        </address>
+<p>In <a href="https://www.ruere.com.ar/category/play.html">play</a>.</p>
+<p>tags: <a href="https://www.ruere.com.ar/tag/networking.html">networking</a> <a href="https://www.ruere.com.ar/tag/mesh.html">mesh</a> <a href="https://www.ruere.com.ar/tag/linux.html">linux</a> </p>
+</footer><!-- /.post-info -->      <h1>Introduction</h1>
+<p>After much dissapointment with 802.11s, I'm ready to try the other alternatives.</p>
+<p>I've learned that small steps are benefitial in these faulty lands so I'll setup an ad-hoc connection first and after I see that it works, I'll setup BATMAN.</p>
+<p>BATMAN has gone through some deep changes during it's life. AFAIK, it begun as a layer 3 thingy and later became a layer 2 thingaru. With zero network experience, I'm of the opinion that layer 2 is the correct layer for a service of this kind.</p>
+<p>A bit of weirdness introduced by being layer 2 is that all the nodes will appear to be directly connected to each other. I find this unfortunate as the tools I normally use become deceptive. <code>batctl</code> provides alternatives which understand what's actually going on.</p>
+<h1>Components</h1>
+<ol>
+<li>Custom built PC with a Qualcomm Atheros AR9300 WiFi and a current Arch Linux.</li>
+<li>Acer Aspire E15 (E5-521-84UV) laptop with a Broadcom BCM43142 WiFi card and a current Arch Linux.</li>
+</ol>
+<p>A current Arch has the 4.4.1 kernel.</p>
+<p>IBSS does not appear to be usable with other configurations on the Atheros WiFi:</p>
+<div class="highlight"><pre><span></span>$ iw list
+[...]
+    valid interface combinations:
+         * #{ managed } &lt;= 2048, #{ AP, mesh point } &lt;= 8, #{ P2P-client, P2P-GO } &lt;= 1,
+           total &lt;= 2048, #channels &lt;= 1, STA/AP BI must match
+         * #{ WDS } &lt;= 2048,
+           total &lt;= 2048, #channels &lt;= 1, STA/AP BI must match
+[...]
+</pre></div>
+
+
+<p>Broadcom supports no combinations, of course.</p>
+<h1>Objectives</h1>
+<ol>
+<li>Setup an ad-hoc connection.</li>
+<li>Setup a mesh connection between the two machines with static IPs. To test the connection, <code>ping</code> would be an good first test.</li>
+</ol>
+<h1>Configuration of an Ad-Hoc Connection</h1>
+<p>Since the machines are so similar, the instructions work almost verbatim with the exception of the device name.</p>
+<div class="highlight"><pre><span></span>$ sudo iw dev wlan0 set type ibss
+$ sudo ip addr add 192.168.2.5/24 dev wlan0
+$ sudo ip link set up dev wlan0
+$ sudo iw dev wlan0 ibss join openadhoc 2432
+
+$ iw dev wlan0 info
+Interface wlan0
+    ifindex 3
+    wdev 0x1
+    addr 90:f6:52:17:92:06
+    ssid openadhoc
+    type IBSS
+    wiphy 0
+    channel 5 (2432 MHz), width: 20 MHz (no HT), center1: 2432 MHz
+</pre></div>
+
+
+<p>This sets both devices to the same channel as peers.</p>
+<p><code>ping</code> works immediatelly! :D</p>
+<p>A <code>iw dev wlan0 station dump</code> shows that a connection is established:</p>
+<div class="highlight"><pre><span></span>$ iw dev wlan0 station dump
+Station d0:53:49:c0:05:6a (on wlan0)
+    inactive time:  356 ms
+    rx bytes:   17746
+    rx packets: 223
+    tx bytes:   832
+    tx packets: 8
+    tx retries: 0
+    tx failed:  0
+    signal:     -41 [-45, -45, -49] dBm
+    signal avg: -41 [-45, -45, -51] dBm
+    tx bitrate: 48.0 MBit/s
+    rx bitrate: 54.0 MBit/s
+    expected throughput:    3.414Mbps
+    authorized: yes
+    authenticated:  yes
+    preamble:   long
+    WMM/WME:    yes
+    MFP:        no
+    TDLS peer:  no
+</pre></div>
+
+
+<p>Suprisingly, on the laptop (Broadcom), the <code>station dump</code> is empty.</p>
+<h1>Configuration of BATMAN</h1>
+<p>To guide me, I'm reading the <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide">quick-start from Open-Mesh.org</a>.</p>
+<p>I need some new stuff on my system for this to work: <code>yaourt -S batctl</code></p>
+<p>OK, LET'S DO THIS!!</p>
+<p>The quick-start uses an ethernet link for the example, which is not very helpful, and does not mention something crucial for WiFi.</p>
+<p>BATMAN will work over any link. That means that it would work over ethernet, ad-hoc or managed. You have to configure the device to the type you want. BATMAN will not change that.</p>
+<p>First configure the device:</p>
+<div class="highlight"><pre><span></span>$ sudo iw dev wlan0 set type ibss
+$ sudo ip link set up dev wlan0
+$ sudo iw dev wlan0 ibss join openbatman 2432
+</pre></div>
+
+
+<p>Now configure BATMAN:</p>
+<div class="highlight"><pre><span></span>$ sudo modprobe batman-adv
+$ sudo batctl if add wlan0
+$ sudo ip link set up dev wlan0
+$ sudo batctl if
+wlan0: active
+$ sudo journalctl -f
+[...]
+Feb 28 22:22:35 epictetus kernel: batman_adv: bat0: Adding interface: wlan0
+Feb 28 22:22:35 epictetus kernel: batman_adv: bat0: The MTU of interface wlan0 is too small (1500) to handle the transport of batman-adv packets. Packets going over this interface will be fragmented on layer2 which could impact the perform
+Feb 28 22:22:35 epictetus kernel: batman_adv: bat0: Not using interface wlan0 (retrying later): interface not active
+[...]
+Feb 28 22:24:43 epictetus kernel: IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
+Feb 28 22:24:43 epictetus kernel: batman_adv: bat0: Interface activated: wlan0
+[...]
+$ sudo ip addr add 192.168.2.5/24 dev bat0
+$ sudo ip link set up dev bat0
+</pre></div>
+
+
+<p>And it works! :D</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -82,6 +82,5 @@ def publish(c):
 def gh_pages(c):
     """Publish to GitHub Pages"""
     preview(c)
-    c.run('ghp-import -b {github_pages_branch} '
-          '-m {commit_message} '
-          '{deploy_path} -p'.format(**CONFIG))
+    c.run('ghp-import {deploy_path} -p'.format(**CONFIG))
+    c.run('git push origin gh-pages')

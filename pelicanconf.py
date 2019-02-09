@@ -29,3 +29,6 @@ DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+STATIC_PATHS = ['images', 'extra']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}

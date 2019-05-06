@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>AMQP 1.0</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Notes and Stuff </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/play.html">play</a></li>
+                    <li><a href="/category/work.html">work</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/amqp-10.html" rel="bookmark"
+           title="Permalink to AMQP 1.0">AMQP 1.0</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2019-05-05T20:49:00-03:00">
+                Published: Sun 05 May 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/javier-ruere.html">Javier Ruere</a>
+        </address>
+<p>In <a href="/category/play.html">play</a>.</p>
+<p>tags: <a href="/tag/networking.html">networking</a> <a href="/tag/messaging.html">messaging</a> <a href="/tag/protocol.html">protocol</a> <a href="/tag/amqp.html">amqp</a> </p>
+</footer><!-- /.post-info -->      <h1>Introduction</h1>
+<p>This is a WIP!</p>
+<p>I have been using this protocol for years and it has been a bit of a pain, honestly.</p>
+<p>In part because the library I use, <a href="https://qpid.apache.org/proton/index.html">Qpid Proton</a>, was a bit green and in part because I didn't fully understand the protocol when I begun.</p>
+<p>Since the use of this protocol has expanded at work, it would be great to have a record of my experience with it to ease communication.</p>
+<p>Finally, for reference, there's an <a href="https://github.com/xinchen10/awesome-amqp">index of awesome links about AMQP</a>.</p>
+<h1>What is AMQP</h1>
+<p>AMQP 1.0 is a peer to peer reliable messaging protocol. It is quite sophisticated and allows for very good performance and several communication patterns.</p>
+<p>The first most important thing to know about this protocol is that it is "AMQP 1.0". There are other versions (0.9 &amp; 0-10) which are deeply different.
+The worst part is that the other versions are more widely supported and most libraries and search results will be talking about these other /legacy/ versions.
+For example, RabbitMQ supports 0.9 out of the box. On the other hand, Apache Qpid, ActiveMQ or Azure ServiceBus support 1.0.</p>
+<h1>Resources</h1>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=ODpeIdUdClc&amp;list=PLmE4bZU0qx-wAP02i0I7PJWvDWoCytEjD">Super nice video intro</a></li>
+<li><a href="https://dzone.com/refcardz/amqp-essentials?chapter=1">An article intro</a></li>
+<li><a href="https://qpid.apache.org/releases/qpid-proton-0.27.1/proton/python/book/overview.html">Light overview</a> from Qpid Proton.</li>
+</ul>
+<h1>Features</h1>
+<h2>Peer to Peer</h2>
+<p>This feature is actually quite useful for testing as the broker and the rest of the system can be mocked quite easily.</p>
+<h2>Delivery Guarantees</h2>
+<p>The transmission of messages can have 3 levels of guarantee:</p>
+<ol>
+<li>At-most-once: 1 or 0 times.</li>
+<li>At-least-once: 1 or more times.</li>
+<li>Exactly-once: 1 time.</li>
+</ol>
+<p>At-most-once is the default for Qpid Proton and I suppose is useful for optional data or if the system is handling losing messages.</p>
+<p>At-least-once, although theoretically impossible (the link may never be restored), works well in practice. It's important to handle duplicates or use idempotent messages.</p>
+<p>Exactly-once is theoretically impossible and practically unlikely. I don't understand how this is seriously advertised.</p>
+<p>The way these guarantees are implemented is by receivers accepting messages when they have been processed and senders settling messages once they are aware that the receiver accepted.</p>
+<h3>Qpid Proton</h3>
+<p>Supports all guarantees and At-most-once is the default.</p>
+<p>At-most-once is the default. In this mode, the receiver does not accept and the sender does not settle. It's fire and forget.</p>
+<p>For At-least-once, the receiver accepts the message once it has been processed and the sender does not need to settle. If the accept did not reach the sender, it will send again eventually.</p>
+<p>For exactly-once, the receiver does the same as At-least-once but will wait for the sender to <em>settle</em> the message. If the sender does not settle and the link breaks, it will be <em>accepted</em> again.
+Hopefully the link will be restored and the receiver and sender will not have lost all state. 🤞</p>
+<p>To get At-least-once with the Reactor API, use <code>auto_accept=False</code> in the constructor of the <code>MessagingHandler</code> and leave the rest as default.</p>
+<h2>Flow Control</h2>
+<p>As a receiver, it is possible to specify how many messages you'd like to receive without any sort of synchronization. This is fantastic as it allows to minimize the problem of latency, there will be messages ready on the wire for the system.</p>
+<h1>Other Interesting Features to Explore</h1>
+<h2>Bidirectional Communication</h2>
+<p>The protocol supports maintaining a relation between a message sent and one received. This allows to implement request-response easily.</p>
+<p>It could be interesting to consider this protocol for this access pattern for 2 reasons:</p>
+<ol>
+<li>It's pretty space efficient.</li>
+<li>It allows for efficient async request-response.</li>
+<li>It can allow to use a broker as a buffer or load-balancer.</li>
+</ol>
+<h2>A Better HTTP?</h2>
+<p>Using nodes within a container arranged in a hierarchy allows to handle different stages of communication in different components.</p>
+<p>This sounds like something I like doing in RESTfull APIs where there could be something like: /user/123/tweet/54/comment/9/</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

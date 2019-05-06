@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Notes and Stuff - web</title>
+        <link rel="stylesheet" href="https://www.ruere.com.ar/theme/css/main.css" />
+        <link href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Notes and Stuff Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://www.ruere.com.ar/">Notes and Stuff </a></h1>
+                <nav><ul>
+                    <li><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
+                    <li><a href="https://www.ruere.com.ar/category/work.html">work</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="https://www.ruere.com.ar/choosing-a-static-site-generator.html">Choosing a Static Site Generator</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2015-10-06T23:44:00-03:00">
+                Published: Tue 06 October 2015
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.ruere.com.ar/author/javier-ruere.html">Javier Ruere</a>
+        </address>
+<p>In <a href="https://www.ruere.com.ar/category/play.html">play</a>.</p>
+<p>tags: <a href="https://www.ruere.com.ar/tag/web.html">web</a> <a href="https://www.ruere.com.ar/tag/indieweb.html">indieweb</a> <a href="https://www.ruere.com.ar/tag/python.html">python</a> </p>
+</footer><!-- /.post-info --><p>An article in my feed about some dude changing his static site generator reminded me of the subject.</p>
+<p>This fellow mentioned Hakyll, which is written in Haskell. I'm always tempted to return to Haskell but lately I've grown so distanced from it that I have a hard time tweaking my own xmonad configuration... so no.</p>
+<p>Since I remembered very little from my previous search, I restarted by asking DuckDuckGo for a "python static site generator" and found two interesting links. The first one a <a href="https://wiki.python.org/moin/StaticSiteGenerator" title="Python Site Generators">list of Python site generators</a> and the second a <a href="https://www.staticgen.com/" title="Leaderboard of Static Site Generators">"leaderboard" of static site generators</a>.</p>
+<p>The first one was cool but didn't compare.</p>
+<p>The second one also didn't compare but ranked them by some inane criteria. So I chose <a href="http://blog.getpelican.com/">Pelican</a> which was the first of the Python generators by that criteria and it handles RSS, which is my only requirement.</p>
+<p>It's installed as a normal Python package so I created a virtual env, pip installed it and... it failed on MarkupSafe. :(</p>
+<p>Not a promising start but I re-created the virtual environment with Pypy 3 (2.4.0) instead of Python 3.5.0 and it worked. I guess MarkupSafe 0.23 has some speedups.c for Python 3.5.</p>
+<p>N.B.: The docs tell to start the test server with <code>python -m pelican.server</code> in the quick-start but later recommend using the standard library server. Maybe it's to avoid Python 2 vs 3 issues?</p>
+<p>When starting the dev server with <code>python -m pelican.server</code> it hangs? No! It just doesn't print the "Listening on port 8000..." I have come to expect.</p>
+<p>The result looks sensible.</p>
+<p>There's still a footer I'd like to remove but some other time.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

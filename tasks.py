@@ -11,9 +11,9 @@ from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
 
 CONFIG = {
     # Local path configuration (can be absolute or relative to tasks.py)
-    'deploy_path': 'output',
+    'deploy_path': 'docs',
     # Github Pages configuration
-    'github_pages_branch': 'gh-pages',
+    #'github_pages_branch': 'gh-pages',
     'commit_message': "'Publish site on {}'".format(datetime.date.today().isoformat()),
     # Port for `serve`
     'port': 8000,
@@ -66,10 +66,3 @@ def reserve(c):
 def preview(c):
     """Build production version of site"""
     c.run('pelican -s publishconf.py')
-
-@task
-def publish(c):
-    """Publish to GitHub Pages"""
-    preview(c)
-    c.run('ghp-import {deploy_path} -p'.format(**CONFIG))
-    c.run('git push origin gh-pages')

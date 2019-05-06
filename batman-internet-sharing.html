@@ -57,7 +57,7 @@
 <h1>Bridging Official instructions</h1>
 <p>In <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide#Mixing-non-BATMAN-systems-with-batman-adv">Mixing non-B.A.T.M.A.N. systems with batman-adv</a>, it shows how to do this, and it's super easy!</p>
 <p>The instructions are for bridging <code>eth0</code> with <code>wlan0</code>, which I suspect is much easier than <code>wlan0</code> to <code>wlan1</code>.
-It does one misterious thing though (I've changed the device to match my setup):</p>
+It does one mysterious thing though (I've changed the device to match my setup):</p>
 <div class="highlight"><pre><span></span>ip link set mtu 1532 dev wlan1
 iwconfig wlan1 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
 </pre></div>

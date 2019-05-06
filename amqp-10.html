@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>Notes and Stuff - messaging</title>
+        <title>AMQP 1.0</title>
         <link rel="stylesheet" href="https://www.ruere.com.ar/theme/css/main.css" />
         <link href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Notes and Stuff Atom Feed" />
 </head>
@@ -11,14 +11,19 @@
         <header id="banner" class="body">
                 <h1><a href="https://www.ruere.com.ar/">Notes and Stuff </a></h1>
                 <nav><ul>
-                    <li><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
+                    <li class="active"><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
                     <li><a href="https://www.ruere.com.ar/category/work.html">work</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://www.ruere.com.ar/amqp-10.html" rel="bookmark"
+           title="Permalink to AMQP 1.0">AMQP 1.0</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="https://www.ruere.com.ar/amqp-10.html">AMQP 1.0</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2019-05-05T20:49:00-03:00">
                 Published: Sun 05 May 2019
@@ -29,7 +34,7 @@
         </address>
 <p>In <a href="https://www.ruere.com.ar/category/play.html">play</a>.</p>
 <p>tags: <a href="https://www.ruere.com.ar/tag/networking.html">networking</a> <a href="https://www.ruere.com.ar/tag/messaging.html">messaging</a> <a href="https://www.ruere.com.ar/tag/protocol.html">protocol</a> <a href="https://www.ruere.com.ar/tag/amqp.html">amqp</a> </p>
-</footer><!-- /.post-info --><h1>Introduction</h1>
+</footer><!-- /.post-info -->      <h1>Introduction</h1>
 <p>This is a WIP!</p>
 <p>I have been using this protocol for years and it has been a bit of a pain, honestly.</p>
 <p>In part because the library I use, <a href="https://qpid.apache.org/proton/index.html">Qpid Proton</a>, was a bit green and in part because I didn't fully understand the protocol when I begun.</p>
@@ -80,54 +85,11 @@ Hopefully the link will be restored and the receiver and sender will not have lo
 </ol>
 <h2>A Better HTTP?</h2>
 <p>Using nodes within a container arranged in a hierarchy allows to handle different stages of communication in different components.</p>
-<p>This sounds like something I like doing in RESTfull APIs where there could be something like: /user/123/tweet/54/comment/9/</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+<p>This sounds like something I like doing in RESTfull APIs where there could be something like: /user/123/tweet/54/comment/9/</p>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://www.ruere.com.ar/a-small-survey-of-hosted-brokered-messaging-systems.html" rel="bookmark"
-                           title="Permalink to A small survey of hosted brokered messaging systems">A small survey of hosted brokered messaging systems</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-11-15T21:45:00-03:00">
-                Published: Sun 15 November 2015
-        </abbr>
-		<br />
-        <abbr class="modified" title="2016-02-28T19:23:00-03:00">
-                Updated: Sun 28 February 2016
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://www.ruere.com.ar/author/javier-ruere.html">Javier Ruere</a>
-        </address>
-<p>In <a href="https://www.ruere.com.ar/category/work.html">work</a>.</p>
-<p>tags: <a href="https://www.ruere.com.ar/tag/messaging.html">messaging</a> <a href="https://www.ruere.com.ar/tag/broker.html">broker</a> <a href="https://www.ruere.com.ar/tag/net.html">net</a> </p>
-</footer><!-- /.post-info -->                <h1>Azure Storage Queues</h1>
-<p>Intro: [1]</p>
-<p>Pricing:
-- https://azure.microsoft.com/en-us/pricing/details/storage/
-- [2]</p>
-<p>Protocols:
-- HTTP, restful</p>
-<p>Access control:
-- Shared Key</p>
-<p>Performance characteristics[1][4]:
-- Max num of queues: inf
-- Max msg size: 64KB
-- Max num msgs: 500TB (for the entire storage account)
-- Max persistence time: 7 days
-(https …</p>
-                <a class="readmore" href="https://www.ruere.com.ar/a-small-survey-of-hosted-brokered-messaging-systems.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>

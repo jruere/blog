@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Notes and Stuff - play</title><link href="https://www.ruere.com.ar/" rel="alternate"></link><link href="https://www.ruere.com.ar/feeds/play.atom.xml" rel="self"></link><id>https://www.ruere.com.ar/</id><updated>2016-09-04T19:49:00-03:00</updated><entry><title>An Adhoc Net for Quick File Transfer</title><link href="https://www.ruere.com.ar/an-adhoc-net-for-quick-file-transfer.html" rel="alternate"></link><published>2016-09-04T19:49:00-03:00</published><updated>2016-09-04T19:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-09-04:/an-adhoc-net-for-quick-file-transfer.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Notes and Stuff - play</title><link href="https://www.ruere.com.ar/" rel="alternate"></link><link href="https://www.ruere.com.ar/feeds/play.atom.xml" rel="self"></link><id>https://www.ruere.com.ar/</id><updated>2019-05-05T20:49:00-03:00</updated><entry><title>AMQP 1.0</title><link href="https://www.ruere.com.ar/amqp-10.html" rel="alternate"></link><published>2019-05-05T20:49:00-03:00</published><updated>2019-05-05T20:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2019-05-05:/amqp-10.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;This is a WIP!&lt;/p&gt;
+&lt;p&gt;I have been using this protocol for years and it has been a bit of a pain, honestly.&lt;/p&gt;
+&lt;p&gt;In part because the library I use, &lt;a href="https://qpid.apache.org/proton/index.html"&gt;Qpid Proton&lt;/a&gt;, was a bit green and in part because I didn't fully understand the protocol when I begun.&lt;/p&gt;
+&lt;p&gt;Since …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;This is a WIP!&lt;/p&gt;
+&lt;p&gt;I have been using this protocol for years and it has been a bit of a pain, honestly.&lt;/p&gt;
+&lt;p&gt;In part because the library I use, &lt;a href="https://qpid.apache.org/proton/index.html"&gt;Qpid Proton&lt;/a&gt;, was a bit green and in part because I didn't fully understand the protocol when I begun.&lt;/p&gt;
+&lt;p&gt;Since the use of this protocol has expanded at work, it would be great to have a record of my experience with it to ease communication.&lt;/p&gt;
+&lt;p&gt;Finally, for reference, there's an &lt;a href="https://github.com/xinchen10/awesome-amqp"&gt;index of awesome links about AMQP&lt;/a&gt;.&lt;/p&gt;
+&lt;h1&gt;What is AMQP&lt;/h1&gt;
+&lt;p&gt;AMQP 1.0 is a peer to peer reliable messaging protocol. It is quite sophisticated and allows for very good performance and several communication patterns.&lt;/p&gt;
+&lt;p&gt;The first most important thing to know about this protocol is that it is "AMQP 1.0". There are other versions (0.9 &amp;amp; 0-10) which are deeply different.
+The worst part is that the other versions are more widely supported and most libraries and search results will be talking about these other /legacy/ versions.
+For example, RabbitMQ supports 0.9 out of the box. On the other hand, Apache Qpid, ActiveMQ or Azure ServiceBus support 1.0.&lt;/p&gt;
+&lt;h1&gt;Resources&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=ODpeIdUdClc&amp;amp;list=PLmE4bZU0qx-wAP02i0I7PJWvDWoCytEjD"&gt;Super nice video intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://dzone.com/refcardz/amqp-essentials?chapter=1"&gt;An article intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://qpid.apache.org/releases/qpid-proton-0.27.1/proton/python/book/overview.html"&gt;Light overview&lt;/a&gt; from Qpid Proton.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Features&lt;/h1&gt;
+&lt;h2&gt;Peer to Peer&lt;/h2&gt;
+&lt;p&gt;This feature is actually quite useful for testing as the broker and the rest of the system can be mocked quite easily.&lt;/p&gt;
+&lt;h2&gt;Delivery Guarantees&lt;/h2&gt;
+&lt;p&gt;The transmission of messages can have 3 levels of guarantee:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;At-most-once: 1 or 0 times.&lt;/li&gt;
+&lt;li&gt;At-least-once: 1 or more times.&lt;/li&gt;
+&lt;li&gt;Exactly-once: 1 time.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;At-most-once is the default for Qpid Proton and I suppose is useful for optional data or if the system is handling losing messages.&lt;/p&gt;
+&lt;p&gt;At-least-once, although theoretically impossible (the link may never be restored), works well in practice. It's important to handle duplicates or use idempotent messages.&lt;/p&gt;
+&lt;p&gt;Exactly-once is theoretically impossible and practically unlikely. I don't understand how this is seriously advertised.&lt;/p&gt;
+&lt;p&gt;The way these guarantees are implemented is by receivers accepting messages when they have been processed and senders settling messages once they are aware that the receiver accepted.&lt;/p&gt;
+&lt;h3&gt;Qpid Proton&lt;/h3&gt;
+&lt;p&gt;Supports all guarantees and At-most-once is the default.&lt;/p&gt;
+&lt;p&gt;At-most-once is the default. In this mode, the receiver does not accept and the sender does not settle. It's fire and forget.&lt;/p&gt;
+&lt;p&gt;For At-least-once, the receiver accepts the message once it has been processed and the sender does not need to settle. If the accept did not reach the sender, it will send again eventually.&lt;/p&gt;
+&lt;p&gt;For exactly-once, the receiver does the same as At-least-once but will wait for the sender to &lt;em&gt;settle&lt;/em&gt; the message. If the sender does not settle and the link breaks, it will be &lt;em&gt;accepted&lt;/em&gt; again.
+Hopefully the link will be restored and the receiver and sender will not have lost all state. 🤞&lt;/p&gt;
+&lt;p&gt;To get At-least-once with the Reactor API, use &lt;code&gt;auto_accept=False&lt;/code&gt; in the constructor of the &lt;code&gt;MessagingHandler&lt;/code&gt; and leave the rest as default.&lt;/p&gt;
+&lt;h2&gt;Flow Control&lt;/h2&gt;
+&lt;p&gt;As a receiver, it is possible to specify how many messages you'd like to receive without any sort of synchronization. This is fantastic as it allows to minimize the problem of latency, there will be messages ready on the wire for the system.&lt;/p&gt;
+&lt;h1&gt;Other Interesting Features to Explore&lt;/h1&gt;
+&lt;h2&gt;Bidirectional Communication&lt;/h2&gt;
+&lt;p&gt;The protocol supports maintaining a relation between a message sent and one received. This allows to implement request-response easily.&lt;/p&gt;
+&lt;p&gt;It could be interesting to consider this protocol for this access pattern for 2 reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It's pretty space efficient.&lt;/li&gt;
+&lt;li&gt;It allows for efficient async request-response.&lt;/li&gt;
+&lt;li&gt;It can allow to use a broker as a buffer or load-balancer.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;A Better HTTP?&lt;/h2&gt;
+&lt;p&gt;Using nodes within a container arranged in a hierarchy allows to handle different stages of communication in different components.&lt;/p&gt;
+&lt;p&gt;This sounds like something I like doing in RESTfull APIs where there could be something like: /user/123/tweet/54/comment/9/&lt;/p&gt;</content><category term="networking"></category><category term="messaging"></category><category term="protocol"></category><category term="amqp"></category></entry><entry><title>An Adhoc Net for Quick File Transfer</title><link href="https://www.ruere.com.ar/an-adhoc-net-for-quick-file-transfer.html" rel="alternate"></link><published>2016-09-04T19:49:00-03:00</published><updated>2016-09-04T19:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-09-04:/an-adhoc-net-for-quick-file-transfer.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Needing to transfer a lot of data between two computers, I find the perfect excuse to mess with the network.
 Unfortunately, my ethernet cable is broken so wireless it will be.&lt;/p&gt;
 &lt;p&gt;Transfering file through the router has a rate of 1MB/s. I'm disgusted by this. To improve it …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
@@ -107,7 +162,7 @@ Deluge, on the other hand, is doing 5MB/s. This is great!&lt;/p&gt;
 &lt;h1&gt;Bridging Official instructions&lt;/h1&gt;
 &lt;p&gt;In &lt;a href="https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide#Mixing-non-BATMAN-systems-with-batman-adv"&gt;Mixing non-B.A.T.M.A.N. systems with batman-adv&lt;/a&gt;, it shows how to do this, and it's super easy!&lt;/p&gt;
 &lt;p&gt;The instructions are for bridging &lt;code&gt;eth0&lt;/code&gt; with &lt;code&gt;wlan0&lt;/code&gt;, which I suspect is much easier than &lt;code&gt;wlan0&lt;/code&gt; to &lt;code&gt;wlan1&lt;/code&gt;.
-It does one misterious thing though (I've changed the device to match my setup):&lt;/p&gt;
+It does one mysterious thing though (I've changed the device to match my setup):&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ip link set mtu 1532 dev wlan1
 iwconfig wlan1 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
 &lt;/pre&gt;&lt;/div&gt;

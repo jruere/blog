@@ -35,7 +35,7 @@ For example, RabbitMQ supports 0.9 out of the box. On the other hand, Apache Qpi
 
 This feature is actually quite useful for testing as the broker and the rest of the system can be mocked quite easily.
 
-## Delivery
+## Delivery Guarantees
 
 The transmission of messages can have 3 levels of guarantee:
 
@@ -47,7 +47,7 @@ At-most-once is the default for Qpid Proton and I suppose is useful for optional
 
 At-least-once, although theoretically impossible (the link may never be restored), works well in practice. It's important to handle duplicates or use idempotent messages.
 
-Exactly-once is theoretically impossible and practically unlikely. I don't understand how this is seriously advertized.
+Exactly-once is theoretically impossible and practically unlikely. I don't understand how this is seriously advertised.
 
 The way these guarantees are implemented is by receivers accepting messages when they have been processed and senders settling messages once they are aware that the receiver accepted.
 

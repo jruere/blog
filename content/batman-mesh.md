@@ -35,7 +35,7 @@ Setup a bridge between wlan0 and wlan1. This should allow the DHCP on the AP to 
 In [Mixing non-B.A.T.M.A.N. systems with batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide#Mixing-non-BATMAN-systems-with-batman-adv), it shows how to do this, and it's super easy!
 
 The instructions are for bridging `eth0` with `wlan0`, which I suspect is much easier than `wlan0` to `wlan1`.
-It does one misterious thing though (I've changed the device to match my setup):
+It does one mysterious thing though (I've changed the device to match my setup):
 
 ```text
 ip link set mtu 1532 dev wlan1

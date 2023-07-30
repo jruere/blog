@@ -54,7 +54,7 @@ Hopefully the link will be restored and the receiver and sender will not have lo
 &lt;/ol&gt;
 &lt;h2&gt;A Better HTTP?&lt;/h2&gt;
 &lt;p&gt;Using nodes within a container arranged in a hierarchy allows to handle different stages of communication in different components.&lt;/p&gt;
-&lt;p&gt;This sounds like something I like doing in RESTfull APIs where there could be something like: /user/123/tweet/54/comment/9/&lt;/p&gt;</content><category term="networking"></category><category term="messaging"></category><category term="protocol"></category><category term="amqp"></category></entry><entry><title>An Adhoc Net for Quick File Transfer</title><link href="https://www.ruere.com.ar/an-adhoc-net-for-quick-file-transfer.html" rel="alternate"></link><published>2016-09-04T19:49:00-03:00</published><updated>2016-09-04T19:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-09-04:/an-adhoc-net-for-quick-file-transfer.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;This sounds like something I like doing in RESTfull APIs where there could be something like: /user/123/tweet/54/comment/9/&lt;/p&gt;</content><category term="play"></category><category term="networking"></category><category term="messaging"></category><category term="protocol"></category><category term="amqp"></category></entry><entry><title>An Adhoc Net for Quick File Transfer</title><link href="https://www.ruere.com.ar/an-adhoc-net-for-quick-file-transfer.html" rel="alternate"></link><published>2016-09-04T19:49:00-03:00</published><updated>2016-09-04T19:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-09-04:/an-adhoc-net-for-quick-file-transfer.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Needing to transfer a lot of data between two computers, I find the perfect excuse to mess with the network.
 Unfortunately, my ethernet cable is broken so wireless it will be.&lt;/p&gt;
 &lt;p&gt;Transfering file through the router has a rate of 1MB/s. I'm disgusted by this. To improve it …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
@@ -75,7 +75,7 @@ Unfortunately, my ethernet cable is broken so wireless it will be.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;h1&gt;Configuration of an Ad-Hoc Connection&lt;/h1&gt;
 &lt;p&gt;Since the machines are so similar, the instructions work almost verbatim with the exception of the device name.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo iw dev wlan0 set type ibss
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo iw dev wlan0 set type ibss
 $ sudo ip link set up dev wlan0
 $ sudo iw dev wlan0 ibss join openadhoc 2472
 
@@ -88,13 +88,12 @@ Interface wlan0
     type IBSS
     wiphy 0
     channel 5 (2432 MHz), width: 20 MHz (no HT), center1: 2432 MHz
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This sets both devices to the same channel as peers. Surprisingly, to channel 1 when I asked for channel 13.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ping&lt;/code&gt; works immediatelly! :D&lt;/p&gt;
 &lt;p&gt;A &lt;code&gt;iw dev wlan0 station dump&lt;/code&gt; shows that a connection is established:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Station d0:53:49:c0:05:6a (on wlan0)
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Station d0:53:49:c0:05:6a (on wlan0)
     inactive time:  66 ms
     rx bytes:   85589
     rx packets: 1048
@@ -117,8 +116,7 @@ Interface wlan0
     DTIM period:    0
     beacon interval:100
     connected time: 228 seconds
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Suprisingly, on the laptop (Broadcom), the &lt;code&gt;station dump&lt;/code&gt; is empty.&lt;/p&gt;
 &lt;p&gt;The IP is provided by the IPv6 autoconfiguration and there's name resolution through Zeroconf.&lt;/p&gt;
@@ -133,7 +131,7 @@ The second is that the RTT is around a ms (rtt min/avg/max/mdev = 0.999/1.855/9.
 &lt;p&gt;Now &lt;code&gt;rsync&lt;/code&gt; does ~1.8MB/s. That's a nice improvement but still dissapointing.
 Deluge, on the other hand, is doing 5MB/s. This is great!&lt;/p&gt;
 &lt;p&gt;I mean, it's pathetic but for WiFi 11n HT20 (Broadcom), it's pretty good.&lt;/p&gt;
-&lt;p&gt;I guess I'll disable power save on my laptop!&lt;/p&gt;</content><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>B.A.T.M.A.N Internet Sharing</title><link href="https://www.ruere.com.ar/batman-internet-sharing.html" rel="alternate"></link><published>2016-03-05T11:17:00-03:00</published><updated>2016-03-05T11:17:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-03-05:/batman-internet-sharing.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;I guess I'll disable power save on my laptop!&lt;/p&gt;</content><category term="play"></category><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>B.A.T.M.A.N Internet Sharing</title><link href="https://www.ruere.com.ar/batman-internet-sharing.html" rel="alternate"></link><published>2016-03-05T11:17:00-03:00</published><updated>2016-03-05T11:17:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-03-05:/batman-internet-sharing.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;This time I'll use a BATMAN mesh to share an existing internet connection.&lt;/p&gt;
 &lt;h1&gt;How About Some Encryption?&lt;/h1&gt;
 &lt;p&gt;Nope. I failed to setup a WPA Ad-Hoc connection for BATMAN. Don't know what's up.&lt;/p&gt;
@@ -151,11 +149,10 @@ Deluge, on the other hand, is doing 5MB/s. This is great!&lt;/p&gt;
 &lt;p&gt;A current Arch has the 4.4.3 kernel.&lt;/p&gt;
 &lt;h1&gt;Objectives&lt;/h1&gt;
 &lt;p&gt;The currently working setup is like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Internet → AP → client A
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Internet → AP → client A
 
 [BATMAN A → BATMAN B](batman.html)
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Client A and BATMAN A are &lt;code&gt;wlan0&lt;/code&gt; and &lt;code&gt;wlan1&lt;/code&gt;, respectively, on the same host.&lt;/p&gt;
 &lt;p&gt;Setup a bridge between wlan0 and wlan1. This should allow the DHCP on the AP to assign addresses. Super easy! :D&lt;/p&gt;
@@ -163,22 +160,20 @@ Deluge, on the other hand, is doing 5MB/s. This is great!&lt;/p&gt;
 &lt;p&gt;In &lt;a href="https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide#Mixing-non-BATMAN-systems-with-batman-adv"&gt;Mixing non-B.A.T.M.A.N. systems with batman-adv&lt;/a&gt;, it shows how to do this, and it's super easy!&lt;/p&gt;
 &lt;p&gt;The instructions are for bridging &lt;code&gt;eth0&lt;/code&gt; with &lt;code&gt;wlan0&lt;/code&gt;, which I suspect is much easier than &lt;code&gt;wlan0&lt;/code&gt; to &lt;code&gt;wlan1&lt;/code&gt;.
 It does one mysterious thing though (I've changed the device to match my setup):&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ip link set mtu 1532 dev wlan1
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ip link set mtu 1532 dev wlan1
 iwconfig wlan1 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;What is that &lt;code&gt;... ap 02:12:34:56:78:9A ...&lt;/code&gt; bit for?&lt;/p&gt;
 &lt;p&gt;It's in previous commands but I ignored it in the past.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;man iwconfig&lt;/code&gt; says:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[...] If the link  is  ad-hoc, set the cell identity of the ad-hoc network.
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[...] If the link  is  ad-hoc, set the cell identity of the ad-hoc network.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;What?&lt;/p&gt;
 &lt;h1&gt;Bridging&lt;/h1&gt;
 &lt;p&gt;First, I'll change &lt;code&gt;wlan0&lt;/code&gt; not to use DHCP and check everything works.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ip link
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ ip link
 [..]
 3: wlan0: &amp;lt;BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP&amp;gt; mtu 1500 qdisc mq state UP mode DORMANT group default qlen 1000
     link/ether 90:f6:52:17:92:06 brd ff:ff:ff:ff:ff:ff
@@ -201,23 +196,21 @@ $ ip addr
        valid_lft forever preferred_lft forever
 7: bat0: &amp;lt;BROADCAST,MULTICAST&amp;gt; mtu 1500 qdisc noop state DOWN group default qlen 1000
     link/ether d2:b3:d9:3b:62:ea brd ff:ff:ff:ff:ff:ff
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;If we ignore the IPv6 address on wlan0, it looks correct. I'm using a bigger MTU as BATMAN complains otherwise and I'm a generous man.&lt;/p&gt;
 &lt;p&gt;I'll call the bridge &lt;code&gt;bat-bridge&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo ip link set dev wlan0 master bat-bridge
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo ip link set dev wlan0 master bat-bridge
 RTNETLINK answers: Operation not supported
 $ sudo ip link set dev bat0 master bat-bridge
 $ sudo ip link set up dev wlan0
 $ sudo ip link set up dev bat0
 $ sudo ip link set up dev bat-bridge
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Mmmm... &lt;code&gt;wlan0&lt;/code&gt; will not accept a master. I tried this with the device down as well.&lt;/p&gt;
 &lt;p&gt;Lets try to get an address on the brand new and promising &lt;code&gt;bat-bridge&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo dhcpcd bat-bridge
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo dhcpcd bat-bridge
 DUID 00:01:00:01:19:8d:d2:59:90:f6:52:17:92:06
 bat-bridge: IAID d9:3b:62:ea
 bat-bridge: soliciting an IPv6 router
@@ -225,8 +218,7 @@ bat-bridge: soliciting a DHCP lease
 bat-bridge: no IPv6 Routers available
 timed out
 dhcpcd exited
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This is unfortunate.&lt;/p&gt;
 &lt;p&gt;Possible problems:&lt;/p&gt;
@@ -234,7 +226,7 @@ dhcpcd exited
 &lt;li&gt;Bridging 2 wireless NICs instead of one wireless and one wired.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;wlan0&lt;/code&gt;'s reluctance to having a master.&lt;/li&gt;
 &lt;li&gt;The &lt;code&gt;iwconfig&lt;/code&gt; &lt;code&gt;ap&lt;/code&gt; thingy.&lt;/li&gt;
-&lt;/ol&gt;</content><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>B.A.T.M.A.N</title><link href="https://www.ruere.com.ar/batman.html" rel="alternate"></link><published>2016-02-28T21:48:00-03:00</published><updated>2016-02-28T21:48:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-02-28:/batman.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;/ol&gt;</content><category term="play"></category><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>B.A.T.M.A.N</title><link href="https://www.ruere.com.ar/batman.html" rel="alternate"></link><published>2016-02-28T21:48:00-03:00</published><updated>2016-02-28T21:48:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-02-28:/batman.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;After much dissapointment with 802.11s, I'm ready to try the other alternatives.&lt;/p&gt;
 &lt;p&gt;I've learned that small steps are benefitial in these faulty lands so I'll setup an ad-hoc connection first and after I see that it works, I'll setup BATMAN.&lt;/p&gt;
 &lt;p&gt;BATMAN has gone through some deep changes during …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
@@ -249,7 +241,7 @@ dhcpcd exited
 &lt;/ol&gt;
 &lt;p&gt;A current Arch has the 4.4.1 kernel.&lt;/p&gt;
 &lt;p&gt;IBSS does not appear to be usable with other configurations on the Atheros WiFi:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ iw list
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ iw list
 [...]
     valid interface combinations:
          * #{ managed } &amp;lt;= 2048, #{ AP, mesh point } &amp;lt;= 8, #{ P2P-client, P2P-GO } &amp;lt;= 1,
@@ -257,8 +249,7 @@ dhcpcd exited
          * #{ WDS } &amp;lt;= 2048,
            total &amp;lt;= 2048, #channels &amp;lt;= 1, STA/AP BI must match
 [...]
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Broadcom supports no combinations, of course.&lt;/p&gt;
 &lt;h1&gt;Objectives&lt;/h1&gt;
@@ -268,7 +259,7 @@ dhcpcd exited
 &lt;/ol&gt;
 &lt;h1&gt;Configuration of an Ad-Hoc Connection&lt;/h1&gt;
 &lt;p&gt;Since the machines are so similar, the instructions work almost verbatim with the exception of the device name.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo iw dev wlan0 set type ibss
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo iw dev wlan0 set type ibss
 $ sudo ip addr add 192.168.2.5/24 dev wlan0
 $ sudo ip link set up dev wlan0
 $ sudo iw dev wlan0 ibss join openadhoc 2432
@@ -282,13 +273,12 @@ Interface wlan0
     type IBSS
     wiphy 0
     channel 5 (2432 MHz), width: 20 MHz (no HT), center1: 2432 MHz
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This sets both devices to the same channel as peers.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ping&lt;/code&gt; works immediatelly! :D&lt;/p&gt;
 &lt;p&gt;A &lt;code&gt;iw dev wlan0 station dump&lt;/code&gt; shows that a connection is established:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ iw dev wlan0 station dump
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ iw dev wlan0 station dump
 Station d0:53:49:c0:05:6a (on wlan0)
     inactive time:  356 ms
     rx bytes:   17746
@@ -308,8 +298,7 @@ Station d0:53:49:c0:05:6a (on wlan0)
     WMM/WME:    yes
     MFP:        no
     TDLS peer:  no
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Suprisingly, on the laptop (Broadcom), the &lt;code&gt;station dump&lt;/code&gt; is empty.&lt;/p&gt;
 &lt;h1&gt;Configuration of BATMAN&lt;/h1&gt;
@@ -319,14 +308,13 @@ Station d0:53:49:c0:05:6a (on wlan0)
 &lt;p&gt;The quick-start uses an ethernet link for the example, which is not very helpful, and does not mention something crucial for WiFi.&lt;/p&gt;
 &lt;p&gt;BATMAN will work over any link. That means that it would work over ethernet, ad-hoc or managed. You have to configure the device to the type you want. BATMAN will not change that.&lt;/p&gt;
 &lt;p&gt;First configure the device:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo iw dev wlan0 set type ibss
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo iw dev wlan0 set type ibss
 $ sudo ip link set up dev wlan0
 $ sudo iw dev wlan0 ibss join openbatman 2432
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now configure BATMAN:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo modprobe batman-adv
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo modprobe batman-adv
 $ sudo batctl if add wlan0
 $ sudo ip link set up dev wlan0
 $ sudo batctl if
@@ -342,10 +330,9 @@ Feb 28 22:24:43 epictetus kernel: batman_adv: bat0: Interface activated: wlan0
 [...]
 $ sudo ip addr add 192.168.2.5/24 dev bat0
 $ sudo ip link set up dev bat0
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
-&lt;p&gt;And it works! :D&lt;/p&gt;</content><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>A Foray into Mesh Networking</title><link href="https://www.ruere.com.ar/a-foray-into-mesh-networking.html" rel="alternate"></link><published>2016-02-28T19:26:00-03:00</published><updated>2016-02-28T19:26:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-02-28:/a-foray-into-mesh-networking.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;And it works! :D&lt;/p&gt;</content><category term="play"></category><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>A Foray into Mesh Networking</title><link href="https://www.ruere.com.ar/a-foray-into-mesh-networking.html" rel="alternate"></link><published>2016-02-28T19:26:00-03:00</published><updated>2016-02-28T19:26:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2016-02-28:/a-foray-into-mesh-networking.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;When I learned about mesh networks, I immediately found it appealing and begun craving for one. That was over ten years ago.&lt;/p&gt;
 &lt;p&gt;I honestly didn't understand why consumer level network configuration tools (like NetworkManager) don't have the option to join or setup a mesh.&lt;/p&gt;
 &lt;p&gt;On this article I'll document …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
@@ -364,7 +351,7 @@ $ sudo ip link set up dev bat0
 &lt;p&gt;Setup a mesh connection between the two machines with static IPs. To test the connection, &lt;code&gt;ping&lt;/code&gt; would be an good first test.&lt;/p&gt;
 &lt;h1&gt;Configuration&lt;/h1&gt;
 &lt;p&gt;Since the machines are so similar, the instructions work almost verbatim with the exception of the device name.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo iw dev wlan0 set type mesh
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo iw dev wlan0 set type mesh
 sudo ip addr add 192.168.2.5/24 dev wlan0
 sudo ip link set up dev wlan0
 sudo iw dev wlan0 mesh join openmesh
@@ -377,12 +364,11 @@ Interface wlan0
     type mesh point
     wiphy 0
     channel 1 (2412 MHz), width: 20 MHz (no HT), center1: 2412 MHz
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This sets both devices to the same channel as mesh points.&lt;/p&gt;
 &lt;p&gt;A &lt;code&gt;iw dev wlan0 station dump&lt;/code&gt; shows that a connection is established:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;iw dev wlan0 station dump
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;iw dev wlan0 station dump
 Station 00:1b:11:20:dc:2c (on wlan0)
     inactive time:  486 ms
     rx bytes:   7577
@@ -408,44 +394,39 @@ Station 00:1b:11:20:dc:2c (on wlan0)
     WMM/WME:    yes
     MFP:        no
     TDLS peer:  no
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The &lt;code&gt;arping&lt;/code&gt; tool gets a reply:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo arping -I wlan0 192.168.2.3
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo arping -I wlan0 192.168.2.3
 ARPING 192.168.2.3 from 192.168.2.5 wlan0
 Unicast reply from 192.168.2.3 [00:1B:11:20:DC:2C]  8.153ms
 ^CSent 32 probes (1 broadcast(s))
 Received 1 response(s)
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The ARP table gets a new entry:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;arp -n
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;arp -n
 Address                  HWtype  HWaddress           Flags Mask            Iface
 192.168.2.3              ether   00:1b:11:20:dc:2c   C                     wlan0
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The mesh path, looks good.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo iw dev wlan0 mpath dump
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo iw dev wlan0 mpath dump
 DEST ADDR         NEXT HOP          IFACE   SN  METRIC  QLEN    EXPTIME     DTIM    DRET    FLAGS
 00:1b:11:20:dc:2c 00:1b:11:20:dc:2c wlan0   17  342 0   0   100 0   0x4
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Unfortunately, &lt;code&gt;ping&lt;/code&gt; does not work.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ping 192.168.2.3
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ping 192.168.2.3
 PING 192.168.2.3 (192.168.2.3) 56(84) bytes of data.
 ^C
 --- 192.168.2.3 ping statistics ---
 20 packets transmitted, 0 received, 100% packet loss, time 19008ms
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;After trying many things, I could not get this to work.&lt;/p&gt;
 &lt;p&gt;I suspect either I'm doing something wrong or there's a problem with a driver or equipment.&lt;/p&gt;
-&lt;p&gt;Given that my equipment (the USB dongle and the disappointing Broadcom WiFi) is pretty lousy, I'll try again when I get better hardware.&lt;/p&gt;</content><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>Choosing a Static Site Generator</title><link href="https://www.ruere.com.ar/choosing-a-static-site-generator.html" rel="alternate"></link><published>2015-10-06T23:44:00-03:00</published><updated>2015-10-06T23:44:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2015-10-06:/choosing-a-static-site-generator.html</id><summary type="html">&lt;p&gt;An article in my feed about some dude changing his static site generator reminded me of the subject.&lt;/p&gt;
+&lt;p&gt;Given that my equipment (the USB dongle and the disappointing Broadcom WiFi) is pretty lousy, I'll try again when I get better hardware.&lt;/p&gt;</content><category term="play"></category><category term="networking"></category><category term="mesh"></category><category term="linux"></category></entry><entry><title>Choosing a Static Site Generator</title><link href="https://www.ruere.com.ar/choosing-a-static-site-generator.html" rel="alternate"></link><published>2015-10-06T23:44:00-03:00</published><updated>2015-10-06T23:44:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2015-10-06:/choosing-a-static-site-generator.html</id><summary type="html">&lt;p&gt;An article in my feed about some dude changing his static site generator reminded me of the subject.&lt;/p&gt;
 &lt;p&gt;This fellow mentioned Hakyll, which is written in Haskell. I'm always tempted to return to Haskell but lately I've grown so distanced from it that I have a hard time tweaking my …&lt;/p&gt;</summary><content type="html">&lt;p&gt;An article in my feed about some dude changing his static site generator reminded me of the subject.&lt;/p&gt;
 &lt;p&gt;This fellow mentioned Hakyll, which is written in Haskell. I'm always tempted to return to Haskell but lately I've grown so distanced from it that I have a hard time tweaking my own xmonad configuration... so no.&lt;/p&gt;
 &lt;p&gt;Since I remembered very little from my previous search, I restarted by asking DuckDuckGo for a "python static site generator" and found two interesting links. The first one a &lt;a href="https://wiki.python.org/moin/StaticSiteGenerator" title="Python Site Generators"&gt;list of Python site generators&lt;/a&gt; and the second a &lt;a href="https://www.staticgen.com/" title="Leaderboard of Static Site Generators"&gt;"leaderboard" of static site generators&lt;/a&gt;.&lt;/p&gt;
@@ -456,4 +437,4 @@ PING 192.168.2.3 (192.168.2.3) 56(84) bytes of data.
 &lt;p&gt;N.B.: The docs tell to start the test server with &lt;code&gt;python -m pelican.server&lt;/code&gt; in the quick-start but later recommend using the standard library server. Maybe it's to avoid Python 2 vs 3 issues?&lt;/p&gt;
 &lt;p&gt;When starting the dev server with &lt;code&gt;python -m pelican.server&lt;/code&gt; it hangs? No! It just doesn't print the "Listening on port 8000..." I have come to expect.&lt;/p&gt;
 &lt;p&gt;The result looks sensible.&lt;/p&gt;
-&lt;p&gt;There's still a footer I'd like to remove but some other time.&lt;/p&gt;</content><category term="web"></category><category term="indieweb"></category><category term="python"></category></entry></feed>
+&lt;p&gt;There's still a footer I'd like to remove but some other time.&lt;/p&gt;</content><category term="play"></category><category term="web"></category><category term="indieweb"></category><category term="python"></category></entry></feed>

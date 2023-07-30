@@ -2,16 +2,20 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
         <title>A Foray into Mesh Networking</title>
         <link rel="stylesheet" href="https://www.ruere.com.ar/theme/css/main.css" />
         <link href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Notes and Stuff Atom Feed" />
+        <meta name="description" content="Introduction When I learned about mesh networks, I immediately found it appealing and begun craving for one. That was over ten years ago. I..." />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="https://www.ruere.com.ar/">Notes and Stuff </a></h1>
+                <h1><a href="https://www.ruere.com.ar/">Notes and Stuff</a></h1>
                 <nav><ul>
                     <li class="active"><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
+                    <li><a href="https://www.ruere.com.ar/category/web.html">web</a></li>
                     <li><a href="https://www.ruere.com.ar/category/work.html">work</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
@@ -50,7 +54,7 @@
 <p>Setup a mesh connection between the two machines with static IPs. To test the connection, <code>ping</code> would be an good first test.</p>
 <h1>Configuration</h1>
 <p>Since the machines are so similar, the instructions work almost verbatim with the exception of the device name.</p>
-<div class="highlight"><pre><span></span>sudo iw dev wlan0 set type mesh
+<div class="highlight"><pre><span></span><code>sudo iw dev wlan0 set type mesh
 sudo ip addr add 192.168.2.5/24 dev wlan0
 sudo ip link set up dev wlan0
 sudo iw dev wlan0 mesh join openmesh
@@ -63,12 +67,11 @@ Interface wlan0
     type mesh point
     wiphy 0
     channel 1 (2412 MHz), width: 20 MHz (no HT), center1: 2412 MHz
-</pre></div>
-
+</code></pre></div>
 
 <p>This sets both devices to the same channel as mesh points.</p>
 <p>A <code>iw dev wlan0 station dump</code> shows that a connection is established:</p>
-<div class="highlight"><pre><span></span>iw dev wlan0 station dump
+<div class="highlight"><pre><span></span><code>iw dev wlan0 station dump
 Station 00:1b:11:20:dc:2c (on wlan0)
     inactive time:  486 ms
     rx bytes:   7577
@@ -94,40 +97,35 @@ Station 00:1b:11:20:dc:2c (on wlan0)
     WMM/WME:    yes
     MFP:        no
     TDLS peer:  no
-</pre></div>
-
+</code></pre></div>
 
 <p>The <code>arping</code> tool gets a reply:</p>
-<div class="highlight"><pre><span></span>sudo arping -I wlan0 192.168.2.3
+<div class="highlight"><pre><span></span><code>sudo arping -I wlan0 192.168.2.3
 ARPING 192.168.2.3 from 192.168.2.5 wlan0
 Unicast reply from 192.168.2.3 [00:1B:11:20:DC:2C]  8.153ms
 ^CSent 32 probes (1 broadcast(s))
 Received 1 response(s)
-</pre></div>
-
+</code></pre></div>
 
 <p>The ARP table gets a new entry:</p>
-<div class="highlight"><pre><span></span>arp -n
+<div class="highlight"><pre><span></span><code>arp -n
 Address                  HWtype  HWaddress           Flags Mask            Iface
 192.168.2.3              ether   00:1b:11:20:dc:2c   C                     wlan0
-</pre></div>
-
+</code></pre></div>
 
 <p>The mesh path, looks good.</p>
-<div class="highlight"><pre><span></span>sudo iw dev wlan0 mpath dump
+<div class="highlight"><pre><span></span><code>sudo iw dev wlan0 mpath dump
 DEST ADDR         NEXT HOP          IFACE   SN  METRIC  QLEN    EXPTIME     DTIM    DRET    FLAGS
 00:1b:11:20:dc:2c 00:1b:11:20:dc:2c wlan0   17  342 0   0   100 0   0x4
-</pre></div>
-
+</code></pre></div>
 
 <p>Unfortunately, <code>ping</code> does not work.</p>
-<div class="highlight"><pre><span></span>ping 192.168.2.3
+<div class="highlight"><pre><span></span><code>ping 192.168.2.3
 PING 192.168.2.3 (192.168.2.3) 56(84) bytes of data.
 ^C
 --- 192.168.2.3 ping statistics ---
 20 packets transmitted, 0 received, 100% packet loss, time 19008ms
-</pre></div>
-
+</code></pre></div>
 
 <p>After trying many things, I could not get this to work.</p>
 <p>I suspect either I'm doing something wrong or there's a problem with a driver or equipment.</p>
@@ -148,10 +146,10 @@ PING 192.168.2.3 (192.168.2.3) 56(84) bytes of data.
 
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
                 </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
 
 </body>

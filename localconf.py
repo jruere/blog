@@ -26,7 +26,7 @@ DEFAULT_PAGINATION = False
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
-OUTPUT_PATH = 'output/'
+OUTPUT_PATH = 'docs/'  # Required by GitHub Pages.
 STATIC_PATHS = ['images/', 'extra/']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 

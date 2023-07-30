@@ -4,9 +4,10 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content="Pelican" />
-        <title>Notes and Stuff - python</title>
+        <title>Handling HTTP Status Codes</title>
         <link rel="stylesheet" href="https://www.ruere.com.ar/theme/css/main.css" />
         <link href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Notes and Stuff Atom Feed" />
+        <meta name="description" content="Introduction Error handling has been an unglamorous, undervalued, and essential part of protocols and interfaces since time immemorial. As any..." />
 </head>
 
 <body id="index" class="home">
@@ -14,14 +15,19 @@
                 <h1><a href="https://www.ruere.com.ar/">Notes and Stuff</a></h1>
                 <nav><ul>
                     <li><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
-                    <li><a href="https://www.ruere.com.ar/category/web.html">web</a></li>
+                    <li class="active"><a href="https://www.ruere.com.ar/category/web.html">web</a></li>
                     <li><a href="https://www.ruere.com.ar/category/work.html">work</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://www.ruere.com.ar/handling-http-status-codes.html" rel="bookmark"
+           title="Permalink to Handling HTTP Status Codes">Handling HTTP Status Codes</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="https://www.ruere.com.ar/handling-http-status-codes.html">Handling HTTP Status Codes</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2023-07-30T13:27:00-03:00">
                 Published: Sun 30 July 2023
@@ -32,7 +38,7 @@
         </address>
 <p>In <a href="https://www.ruere.com.ar/category/web.html">web</a>.</p>
 <p>tags: <a href="https://www.ruere.com.ar/tag/web.html">web</a> <a href="https://www.ruere.com.ar/tag/python.html">python</a> <a href="https://www.ruere.com.ar/tag/restful.html">restful</a> </p>
-</footer><!-- /.post-info --><h1>Introduction</h1>
+</footer><!-- /.post-info -->      <h1>Introduction</h1>
 <p>Error handling has been an unglamorous, undervalued, and essential part of
 protocols and interfaces since time immemorial.</p>
 <p>As any critical design choice, there are many flavours: return values, as in C
@@ -91,37 +97,11 @@ client might need to handle them specifically.</p>
 <li>If the application defines custom codes, handle those. For example, 530
   "Site is frozen" should not be retried.</li>
 <li>Handle any custom code outside of the standard families.</li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</ul>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://www.ruere.com.ar/choosing-a-static-site-generator.html" rel="bookmark"
-                           title="Permalink to Choosing a Static Site Generator">Choosing a Static Site Generator</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-10-06T23:44:00-03:00">
-                Published: Tue 06 October 2015
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://www.ruere.com.ar/author/javier-ruere.html">Javier Ruere</a>
-        </address>
-<p>In <a href="https://www.ruere.com.ar/category/play.html">play</a>.</p>
-<p>tags: <a href="https://www.ruere.com.ar/tag/web.html">web</a> <a href="https://www.ruere.com.ar/tag/indieweb.html">indieweb</a> <a href="https://www.ruere.com.ar/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                <p>An article in my feed about some dude changing his static site generator reminded me of the subject.</p>
-<p>This fellow mentioned Hakyll, which is written in Haskell. I'm always tempted to return to Haskell but lately I've grown so distanced from it that I have a hard time tweaking my …</p>
-                <a class="readmore" href="https://www.ruere.com.ar/choosing-a-static-site-generator.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>

@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Notes and Stuff</title><link href="https://www.ruere.com.ar/" rel="alternate"></link><link href="https://www.ruere.com.ar/feeds/all.atom.xml" rel="self"></link><id>https://www.ruere.com.ar/</id><updated>2019-05-05T20:49:00-03:00</updated><entry><title>AMQP 1.0</title><link href="https://www.ruere.com.ar/amqp-10.html" rel="alternate"></link><published>2019-05-05T20:49:00-03:00</published><updated>2019-05-05T20:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2019-05-05:/amqp-10.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Notes and Stuff</title><link href="https://www.ruere.com.ar/" rel="alternate"></link><link href="https://www.ruere.com.ar/feeds/all.atom.xml" rel="self"></link><id>https://www.ruere.com.ar/</id><updated>2023-07-30T13:27:00-03:00</updated><entry><title>Handling HTTP Status Codes</title><link href="https://www.ruere.com.ar/handling-http-status-codes.html" rel="alternate"></link><published>2023-07-30T13:27:00-03:00</published><updated>2023-07-30T13:27:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2023-07-30:/handling-http-status-codes.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Error handling has been an unglamorous, undervalued, and essential part of
+protocols and interfaces since time immemorial.&lt;/p&gt;
+&lt;p&gt;As any critical design choice, there are many flavours: return values, as in C
+and Go; exceptions, as in Java and Python; or much better alternatives, as in
+Haskell and Rust.&lt;/p&gt;
+&lt;p&gt;HTTP …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Error handling has been an unglamorous, undervalued, and essential part of
+protocols and interfaces since time immemorial.&lt;/p&gt;
+&lt;p&gt;As any critical design choice, there are many flavours: return values, as in C
+and Go; exceptions, as in Java and Python; or much better alternatives, as in
+Haskell and Rust.&lt;/p&gt;
+&lt;p&gt;HTTP, being a request-response network protocol, is limited to return values.&lt;/p&gt;
+&lt;h1&gt;Error Handling with Return Values&lt;/h1&gt;
+&lt;p&gt;C and Go have a slight design difference. In C, error handling is not part of
+the language. The programmer could choose to handle errors in any of a number
+of ways. This creative freedom resulted in countless terrible choices and
+some inspired interfaces.&lt;/p&gt;
+&lt;p&gt;Decades later, the designers of Go recognised that this freedom is not worth
+the cognitive cost, nor the terrible mistakes. Go clearly favours very
+explicit return value error codes. Love it or hate it, this uniformity has
+value in itself.&lt;/p&gt;
+&lt;p&gt;Both C and Go error codes have something in common, there is one value which
+represents success, and many values to describe failure. This characteristic
+is not limited to programming languages, POSIX processes are the same. This
+asymmetry between success and failure appears in almost every instance. One
+exception is HTTP.&lt;/p&gt;
+&lt;h1&gt;HTTP Status Codes&lt;/h1&gt;
+&lt;p&gt;Being a network protocol, one goal of HTTP is to avoid being "chatty". This
+means that every interaction should request substantial amount of work, and
+respond in a way that your application can continue without further interaction,
+for the given action.&lt;/p&gt;
+&lt;p&gt;For requests, this is solved by resources representing application level
+concepts and verb representing high level operations.&lt;/p&gt;
+&lt;p&gt;For responses, this is solved by having granularity on the status codes. The 
+standard includes 39 status codes to represent failure, and 10 to represent
+success. Does this mean every response handler should have at least 49 cases?
+Fortunately, HTTP has an additional sophistication to handle this complexity.&lt;/p&gt;
+&lt;p&gt;HTTP defines a hierarchy for status codes. Codes between 100 and 199 are
+"informational", between 200 and 299 mean some form of success, between 300 and
+399 mean that some the client needs to perform some additional action, between
+400 and 499 mean that the client made some mistake and between 500 and 599
+that there was some problem on the server.&lt;/p&gt;
+&lt;p&gt;This means that the simplest client needs to handle 5 cases! Most HTTP
+libraries will handle 1xx and 3xx status codes, so application code needs to
+worry about only 3, according to my calculations.&lt;/p&gt;
+&lt;p&gt;Nevertheless, this does not mean that all those 49 codes are actually useless,
+depending on the actual application, those codes could be in use and the
+client might need to handle them specifically.&lt;/p&gt;
+&lt;h1&gt;How to Handle HTTP Status Codes&lt;/h1&gt;
+&lt;p&gt;This brings us to the recommendation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use an HTTP library which handles standard 1xx and 3xx codes.&lt;/li&gt;
+&lt;li&gt;Every HTTP client should handle the 2 failure status code families
+  in a generic way.&lt;ul&gt;
+&lt;li&gt;Declare a programming error in case of a 4xx.&lt;/li&gt;
+&lt;li&gt;Retry a few times after a delay for a 5xx, and then give up.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Handle specific codes for standard functionality you are using. For example,
+  if your application uses authentication, handle 401; if your application
+  uses rate-limiting, handle 429.&lt;/li&gt;
+&lt;li&gt;If the application defines custom codes, handle those. For example, 530
+  "Site is frozen" should not be retried.&lt;/li&gt;
+&lt;li&gt;Handle any custom code outside of the standard families.&lt;/li&gt;
+&lt;/ul&gt;</content><category term="web"></category><category term="web"></category><category term="python"></category><category term="restful"></category></entry><entry><title>AMQP 1.0</title><link href="https://www.ruere.com.ar/amqp-10.html" rel="alternate"></link><published>2019-05-05T20:49:00-03:00</published><updated>2019-05-05T20:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2019-05-05:/amqp-10.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;This is a WIP!&lt;/p&gt;
 &lt;p&gt;I have been using this protocol for years and it has been a bit of a pain, honestly.&lt;/p&gt;
 &lt;p&gt;In part because the library I use, &lt;a href="https://qpid.apache.org/proton/index.html"&gt;Qpid Proton&lt;/a&gt;, was a bit green and in part because I didn't fully understand the protocol when I begun.&lt;/p&gt;

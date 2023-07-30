@@ -14,13 +14,97 @@
                 <h1><a href="https://www.ruere.com.ar/">Notes and Stuff</a></h1>
                 <nav><ul>
                     <li><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
+                    <li><a href="https://www.ruere.com.ar/category/web.html">web</a></li>
                     <li><a href="https://www.ruere.com.ar/category/work.html">work</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://www.ruere.com.ar/choosing-a-static-site-generator.html">Choosing a Static Site Generator</a></h1>
+                    <h1 class="entry-title"><a href="https://www.ruere.com.ar/handling-http-status-codes.html">Handling HTTP Status Codes</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2023-07-30T13:27:00-03:00">
+                Published: Sun 30 July 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.ruere.com.ar/author/javier-ruere.html">Javier Ruere</a>
+        </address>
+<p>In <a href="https://www.ruere.com.ar/category/web.html">web</a>.</p>
+<p>tags: <a href="https://www.ruere.com.ar/tag/web.html">web</a> <a href="https://www.ruere.com.ar/tag/python.html">python</a> <a href="https://www.ruere.com.ar/tag/restful.html">restful</a> </p>
+</footer><!-- /.post-info --><h1>Introduction</h1>
+<p>Error handling has been an unglamorous, undervalued, and essential part of
+protocols and interfaces since time immemorial.</p>
+<p>As any critical design choice, there are many flavours: return values, as in C
+and Go; exceptions, as in Java and Python; or much better alternatives, as in
+Haskell and Rust.</p>
+<p>HTTP, being a request-response network protocol, is limited to return values.</p>
+<h1>Error Handling with Return Values</h1>
+<p>C and Go have a slight design difference. In C, error handling is not part of
+the language. The programmer could choose to handle errors in any of a number
+of ways. This creative freedom resulted in countless terrible choices and
+some inspired interfaces.</p>
+<p>Decades later, the designers of Go recognised that this freedom is not worth
+the cognitive cost, nor the terrible mistakes. Go clearly favours very
+explicit return value error codes. Love it or hate it, this uniformity has
+value in itself.</p>
+<p>Both C and Go error codes have something in common, there is one value which
+represents success, and many values to describe failure. This characteristic
+is not limited to programming languages, POSIX processes are the same. This
+asymmetry between success and failure appears in almost every instance. One
+exception is HTTP.</p>
+<h1>HTTP Status Codes</h1>
+<p>Being a network protocol, one goal of HTTP is to avoid being "chatty". This
+means that every interaction should request substantial amount of work, and
+respond in a way that your application can continue without further interaction,
+for the given action.</p>
+<p>For requests, this is solved by resources representing application level
+concepts and verb representing high level operations.</p>
+<p>For responses, this is solved by having granularity on the status codes. The 
+standard includes 39 status codes to represent failure, and 10 to represent
+success. Does this mean every response handler should have at least 49 cases?
+Fortunately, HTTP has an additional sophistication to handle this complexity.</p>
+<p>HTTP defines a hierarchy for status codes. Codes between 100 and 199 are
+"informational", between 200 and 299 mean some form of success, between 300 and
+399 mean that some the client needs to perform some additional action, between
+400 and 499 mean that the client made some mistake and between 500 and 599
+that there was some problem on the server.</p>
+<p>This means that the simplest client needs to handle 5 cases! Most HTTP
+libraries will handle 1xx and 3xx status codes, so application code needs to
+worry about only 3, according to my calculations.</p>
+<p>Nevertheless, this does not mean that all those 49 codes are actually useless,
+depending on the actual application, those codes could be in use and the
+client might need to handle them specifically.</p>
+<h1>How to Handle HTTP Status Codes</h1>
+<p>This brings us to the recommendation:</p>
+<ul>
+<li>Use an HTTP library which handles standard 1xx and 3xx codes.</li>
+<li>Every HTTP client should handle the 2 failure status code families
+  in a generic way.<ul>
+<li>Declare a programming error in case of a 4xx.</li>
+<li>Retry a few times after a delay for a 5xx, and then give up.</li>
+</ul>
+</li>
+<li>Handle specific codes for standard functionality you are using. For example,
+  if your application uses authentication, handle 401; if your application
+  uses rate-limiting, handle 429.</li>
+<li>If the application defines custom codes, handle those. For example, 530
+  "Site is frozen" should not be retried.</li>
+<li>Handle any custom code outside of the standard families.</li>
+</ul>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://www.ruere.com.ar/choosing-a-static-site-generator.html" rel="bookmark"
+                           title="Permalink to Choosing a Static Site Generator">Choosing a Static Site Generator</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2015-10-06T23:44:00-03:00">
                 Published: Tue 06 October 2015
@@ -31,18 +115,13 @@
         </address>
 <p>In <a href="https://www.ruere.com.ar/category/play.html">play</a>.</p>
 <p>tags: <a href="https://www.ruere.com.ar/tag/web.html">web</a> <a href="https://www.ruere.com.ar/tag/indieweb.html">indieweb</a> <a href="https://www.ruere.com.ar/tag/python.html">python</a> </p>
-</footer><!-- /.post-info --><p>An article in my feed about some dude changing his static site generator reminded me of the subject.</p>
-<p>This fellow mentioned Hakyll, which is written in Haskell. I'm always tempted to return to Haskell but lately I've grown so distanced from it that I have a hard time tweaking my own xmonad configuration... so no.</p>
-<p>Since I remembered very little from my previous search, I restarted by asking DuckDuckGo for a "python static site generator" and found two interesting links. The first one a <a href="https://wiki.python.org/moin/StaticSiteGenerator" title="Python Site Generators">list of Python site generators</a> and the second a <a href="https://www.staticgen.com/" title="Leaderboard of Static Site Generators">"leaderboard" of static site generators</a>.</p>
-<p>The first one was cool but didn't compare.</p>
-<p>The second one also didn't compare but ranked them by some inane criteria. So I chose <a href="http://blog.getpelican.com/">Pelican</a> which was the first of the Python generators by that criteria and it handles RSS, which is my only requirement.</p>
-<p>It's installed as a normal Python package so I created a virtual env, pip installed it and... it failed on MarkupSafe. :(</p>
-<p>Not a promising start but I re-created the virtual environment with Pypy 3 (2.4.0) instead of Python 3.5.0 and it worked. I guess MarkupSafe 0.23 has some speedups.c for Python 3.5.</p>
-<p>N.B.: The docs tell to start the test server with <code>python -m pelican.server</code> in the quick-start but later recommend using the standard library server. Maybe it's to avoid Python 2 vs 3 issues?</p>
-<p>When starting the dev server with <code>python -m pelican.server</code> it hangs? No! It just doesn't print the "Listening on port 8000..." I have come to expect.</p>
-<p>The result looks sensible.</p>
-<p>There's still a footer I'd like to remove but some other time.</p>                </article>
-            </aside><!-- /#featured -->
+</footer><!-- /.post-info -->                <p>An article in my feed about some dude changing his static site generator reminded me of the subject.</p>
+<p>This fellow mentioned Hakyll, which is written in Haskell. I'm always tempted to return to Haskell but lately I've grown so distanced from it that I have a hard time tweaking my …</p>
+                <a class="readmore" href="https://www.ruere.com.ar/choosing-a-static-site-generator.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>

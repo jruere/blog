@@ -4,41 +4,44 @@ import os
 import shutil
 import sys
 import datetime
+from pathlib import Path
 
 from invoke import task
 from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
 
-CONFIG = {
-    # Local path configuration (can be absolute or relative to tasks.py)
-    'deploy_path': 'output',
-    # Github Pages configuration
-    #'github_pages_branch': 'gh-pages',
-    'commit_message': "'Publish site on {}'".format(datetime.date.today().isoformat()),
-    # Port for `serve`
-    'port': 8000,
-}
+import localconf as LOCAL_CONFIG
+
+# Github Pages configuration
+#'github_pages_branch': 'gh-pages',
+COMMIT_MESSAGE = f"'Publish site on {datetime.date.today().isoformat()}'"
 
 @task
 def clean(_):
     """Remove generated files"""
-    if os.path.isdir(CONFIG['deploy_path']):
-        shutil.rmtree(CONFIG['deploy_path'])
-        os.makedirs(CONFIG['deploy_path'])
+    path = Path(LOCAL_CONFIG.OUTPUT_PATH)
+    if path.exists():
+        assert path.is_dir()
+        shutil.rmtree(path)
+    path.mkdir(parents=True, exist_ok=False)
+
 
 @task
 def build(c):
     """Build local version of site"""
     c.run('pelican -s localconf.py')
 
+
 @task
 def rebuild(c):
     """`build` with the delete switch"""
     c.run('pelican -d -s localconf.py')
 
+
 @task
 def regenerate(c):
     """Automatically regenerate site upon file modification"""
     c.run('pelican -r -s localconf.py')
+
 
 @task
 def serve(_):
@@ -48,18 +51,18 @@ def serve(_):
         allow_reuse_address = True
 
     server = AddressReuseTCPServer(
-        CONFIG['deploy_path'],
-        ('', CONFIG['port']),
+        LOCAL_CONFIG.OUTPUT_PATH,
+        ('', LOCAL_CONFIG.PORT),
         ComplexHTTPRequestHandler)
 
-    sys.stderr.write('Serving on port {port} ...\n'.format(**CONFIG))
+    print(f"Serving on port {LOCAL_CONFIG.PORT} ...", file=sys.stderr)
     server.serve_forever()
 
-@task
-def reserve(c):
+
+@task(pre=[build, serve])
+def reserve(_):
     """`build`, then `serve`"""
-    build(c)
-    serve(c)
+
 
 @task
 def preview(c):

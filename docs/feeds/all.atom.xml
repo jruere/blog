@@ -64,7 +64,7 @@ client might need to handle them specifically.&lt;/p&gt;
 &lt;li&gt;If the application defines custom codes, handle those. For example, 530
   "Site is frozen" should not be retried.&lt;/li&gt;
 &lt;li&gt;Handle any custom code outside of the standard families.&lt;/li&gt;
-&lt;/ul&gt;</content><category term="web"></category><category term="web"></category><category term="python"></category><category term="restful"></category></entry><entry><title>AMQP 1.0</title><link href="https://www.ruere.com.ar/amqp-10.html" rel="alternate"></link><published>2019-05-05T20:49:00-03:00</published><updated>2019-05-05T20:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2019-05-05:/amqp-10.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;/ul&gt;</content><category term="web"></category><category term="web"></category><category term="restful"></category></entry><entry><title>AMQP 1.0</title><link href="https://www.ruere.com.ar/amqp-10.html" rel="alternate"></link><published>2019-05-05T20:49:00-03:00</published><updated>2019-05-05T20:49:00-03:00</updated><author><name>Javier Ruere</name></author><id>tag:www.ruere.com.ar,2019-05-05:/amqp-10.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;This is a WIP!&lt;/p&gt;
 &lt;p&gt;I have been using this protocol for years and it has been a bit of a pain, honestly.&lt;/p&gt;
 &lt;p&gt;In part because the library I use, &lt;a href="https://qpid.apache.org/proton/index.html"&gt;Qpid Proton&lt;/a&gt;, was a bit green and in part because I didn't fully understand the protocol when I begun.&lt;/p&gt;

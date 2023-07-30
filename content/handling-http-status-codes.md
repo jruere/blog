@@ -1,7 +1,7 @@
 Title: Handling HTTP Status Codes
 Date: 2023-07-30 13:27
 Category: web
-Tags: web, python, restful
+Tags: web, restful
 
 
 # Introduction

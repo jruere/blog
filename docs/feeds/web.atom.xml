@@ -64,4 +64,4 @@ client might need to handle them specifically.&lt;/p&gt;
 &lt;li&gt;If the application defines custom codes, handle those. For example, 530
   "Site is frozen" should not be retried.&lt;/li&gt;
 &lt;li&gt;Handle any custom code outside of the standard families.&lt;/li&gt;
-&lt;/ul&gt;</content><category term="web"></category><category term="web"></category><category term="python"></category><category term="restful"></category></entry></feed>
+&lt;/ul&gt;</content><category term="web"></category><category term="web"></category><category term="restful"></category></entry></feed>

@@ -6,7 +6,6 @@ import sys
 import datetime
 
 from invoke import task
-from invoke.util import cd
 from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
 
 CONFIG = {
@@ -20,7 +19,7 @@ CONFIG = {
 }
 
 @task
-def clean(c):
+def clean(_):
     """Remove generated files"""
     if os.path.isdir(CONFIG['deploy_path']):
         shutil.rmtree(CONFIG['deploy_path'])
@@ -42,7 +41,7 @@ def regenerate(c):
     c.run('pelican -r -s pelicanconf.py')
 
 @task
-def serve(c):
+def serve(_):
     """Serve site at http://localhost:8000/"""
 
     class AddressReuseTCPServer(RootedHTTPServer):

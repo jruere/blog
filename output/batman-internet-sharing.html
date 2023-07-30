@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
         <title>B.A.T.M.A.N Internet Sharing</title>
         <link rel="stylesheet" href="https://www.ruere.com.ar/theme/css/main.css" />
         <link href="https://www.ruere.com.ar/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Notes and Stuff Atom Feed" />
+        <meta name="description" content="Introduction This time I'll use a BATMAN mesh to share an existing internet connection. How About Some Encryption? Nope. I failed to setup a WPA..." />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="https://www.ruere.com.ar/">Notes and Stuff </a></h1>
+                <h1><a href="https://www.ruere.com.ar/">Notes and Stuff</a></h1>
                 <nav><ul>
                     <li class="active"><a href="https://www.ruere.com.ar/category/play.html">play</a></li>
                     <li><a href="https://www.ruere.com.ar/category/work.html">work</a></li>
@@ -46,34 +49,31 @@
 <p>A current Arch has the 4.4.3 kernel.</p>
 <h1>Objectives</h1>
 <p>The currently working setup is like this:</p>
-<div class="highlight"><pre><span></span>Internet → AP → client A
+<div class="highlight"><pre><span></span><code>Internet → AP → client A
 
 [BATMAN A → BATMAN B](batman.html)
-</pre></div>
-
+</code></pre></div>
 
 <p>Client A and BATMAN A are <code>wlan0</code> and <code>wlan1</code>, respectively, on the same host.</p>
 <p>Setup a bridge between wlan0 and wlan1. This should allow the DHCP on the AP to assign addresses. Super easy! :D</p>
 <h1>Bridging Official instructions</h1>
 <p>In <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide#Mixing-non-BATMAN-systems-with-batman-adv">Mixing non-B.A.T.M.A.N. systems with batman-adv</a>, it shows how to do this, and it's super easy!</p>
 <p>The instructions are for bridging <code>eth0</code> with <code>wlan0</code>, which I suspect is much easier than <code>wlan0</code> to <code>wlan1</code>.
-It does one misterious thing though (I've changed the device to match my setup):</p>
-<div class="highlight"><pre><span></span>ip link set mtu 1532 dev wlan1
+It does one mysterious thing though (I've changed the device to match my setup):</p>
+<div class="highlight"><pre><span></span><code>ip link set mtu 1532 dev wlan1
 iwconfig wlan1 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
-</pre></div>
-
+</code></pre></div>
 
 <p>What is that <code>... ap 02:12:34:56:78:9A ...</code> bit for?</p>
 <p>It's in previous commands but I ignored it in the past.</p>
 <p><code>man iwconfig</code> says:</p>
-<div class="highlight"><pre><span></span>[...] If the link  is  ad-hoc, set the cell identity of the ad-hoc network.
-</pre></div>
-
+<div class="highlight"><pre><span></span><code>[...] If the link  is  ad-hoc, set the cell identity of the ad-hoc network.
+</code></pre></div>
 
 <p>What?</p>
 <h1>Bridging</h1>
 <p>First, I'll change <code>wlan0</code> not to use DHCP and check everything works.</p>
-<div class="highlight"><pre><span></span>$ ip link
+<div class="highlight"><pre><span></span><code>$ ip link
 [..]
 3: wlan0: &lt;BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DORMANT group default qlen 1000
     link/ether 90:f6:52:17:92:06 brd ff:ff:ff:ff:ff:ff
@@ -96,23 +96,21 @@ $ ip addr
        valid_lft forever preferred_lft forever
 7: bat0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000
     link/ether d2:b3:d9:3b:62:ea brd ff:ff:ff:ff:ff:ff
-</pre></div>
-
+</code></pre></div>
 
 <p>If we ignore the IPv6 address on wlan0, it looks correct. I'm using a bigger MTU as BATMAN complains otherwise and I'm a generous man.</p>
 <p>I'll call the bridge <code>bat-bridge</code>.</p>
-<div class="highlight"><pre><span></span>$ sudo ip link set dev wlan0 master bat-bridge
+<div class="highlight"><pre><span></span><code>$ sudo ip link set dev wlan0 master bat-bridge
 RTNETLINK answers: Operation not supported
 $ sudo ip link set dev bat0 master bat-bridge
 $ sudo ip link set up dev wlan0
 $ sudo ip link set up dev bat0
 $ sudo ip link set up dev bat-bridge
-</pre></div>
-
+</code></pre></div>
 
 <p>Mmmm... <code>wlan0</code> will not accept a master. I tried this with the device down as well.</p>
 <p>Lets try to get an address on the brand new and promising <code>bat-bridge</code>.</p>
-<div class="highlight"><pre><span></span>$ sudo dhcpcd bat-bridge
+<div class="highlight"><pre><span></span><code>$ sudo dhcpcd bat-bridge
 DUID 00:01:00:01:19:8d:d2:59:90:f6:52:17:92:06
 bat-bridge: IAID d9:3b:62:ea
 bat-bridge: soliciting an IPv6 router
@@ -120,8 +118,7 @@ bat-bridge: soliciting a DHCP lease
 bat-bridge: no IPv6 Routers available
 timed out
 dhcpcd exited
-</pre></div>
-
+</code></pre></div>
 
 <p>This is unfortunate.</p>
 <p>Possible problems:</p>
@@ -146,10 +143,10 @@ dhcpcd exited
 
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
                 </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
 
 </body>

@@ -28,17 +28,17 @@ def clean(_):
 @task
 def build(c):
     """Build local version of site"""
-    c.run('pelican -s pelicanconf.py')
+    c.run('pelican -s localconf.py')
 
 @task
 def rebuild(c):
     """`build` with the delete switch"""
-    c.run('pelican -d -s pelicanconf.py')
+    c.run('pelican -d -s localconf.py')
 
 @task
 def regenerate(c):
     """Automatically regenerate site upon file modification"""
-    c.run('pelican -r -s pelicanconf.py')
+    c.run('pelican -r -s localconf.py')
 
 @task
 def serve(_):
